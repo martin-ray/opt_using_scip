@@ -1,2 +1,2 @@
-# POP
-A set of popular optimization problems solved by C++
+# opt
+Solving popular optimization problems using c++ scip api 
