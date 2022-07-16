@@ -255,6 +255,8 @@ Cost setcoveringsolver::algorithm_end(
             << "Time (s):              " << t << std::endl;
 
     info.write_json_output();
+
+
     return lower_bound;
 }
 

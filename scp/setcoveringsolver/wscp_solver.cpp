@@ -10,7 +10,7 @@
 
 
 using namespace setcoveringsolver;
-int setcoveringproblem(std::vector<std::set<int>>& st_v,std::map<std::set<int>,int>& set2weight,int num_of_elem)
+int setcoveringproblem(std::vector<std::set<int>>& st_v,std::map<std::set<int>,int>& set2weight,int num_of_elem,std::vector<int>& optimal_set)
 {
     namespace po = boost::program_options;
 
@@ -21,7 +21,7 @@ int setcoveringproblem(std::vector<std::set<int>>& st_v,std::map<std::set<int>,i
     std::string format = "balas1996"; // フォーマットはこれですね
     std::string initial_solution_path = "";
     std::string output_path = "";
-    std::string certificate_path = "";
+    std::string certificate_path = "./sol.txt";
     std::string log_path = "";
     int verbosity_level = 0;
     int loglevelmax = 999;
@@ -32,7 +32,7 @@ int setcoveringproblem(std::vector<std::set<int>>& st_v,std::map<std::set<int>,i
     
     algorithm = "largeneighborhoodsearch_2";
     format = "balas1996";
-    time_limit = 60; // 60秒以内に解を見つけてくれ。
+    time_limit = 30; // 60秒以内に解を見つけてくれ。
     verbosity_level = 1; // これによって解が変わってくる可能性もある。
 
    
@@ -56,8 +56,18 @@ int setcoveringproblem(std::vector<std::set<int>>& st_v,std::map<std::set<int>,i
     std::mt19937_64 generator(seed);
     Solution solution(instance, initial_solution_path);
 
+    // run the algorithm
     auto output = run(algorithm, instance, generator, info);
 
+    if(output.solution.feasible()){
+        std::cout << "feasible" << std::endl;
+    }
+    else{
+        std::cout << "not feasible" << std::endl;
+    }
+
+    for (SetId s = 0; s < st_v.size(); ++s)
+        if (output.solution.contains(s))optimal_set.push_back(s);
     return 0;
 }
 

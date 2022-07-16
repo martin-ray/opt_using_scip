@@ -14,26 +14,22 @@
 #include <random>
 #include "setcoveringsolver/wscp_solver.hpp"
 
-/* g++ weighted_scp.cpp ./setcoveringsolver/algorithms/algorithms.cpp 
-./setcoveringsolver/algorithms/greedy.cpp 
-./setcoveringsolver/algorithms/largeneighborhoodsearch.cpp 
-./setcoveringsolver/algorithms/localsearch_rowweighting.cpp 
-./setcoveringsolver/algorithms/milp_gurobi.cpp  
-./setcoveringsolver/solution.cpp ./setcoveringsolver/instance.cpp ./setcoveringsolver/optimizationtools/utils/info.cpp ./setcoveringsolver/wscp_solver.cpp  
--lboost_system -lboost_program_options -lpthread*/
+/* g++ weighted_scp.cpp ./setcoveringsolver/algorithms/algorithms.cpp ./setcoveringsolver/algorithms/greedy.cpp ./setcoveringsolver/algorithms/largeneighborhoodsearch.cpp ./setcoveringsolver/algorithms/localsearch_rowweighting.cpp ./setcoveringsolver/algorithms/milp_gurobi.cpp  ./setcoveringsolver/solution.cpp ./setcoveringsolver/instance.cpp ./setcoveringsolver/optimizationtools/utils/info.cpp ./setcoveringsolver/wscp_solver.cpp  -lboost_system -lboost_program_options -lpthread*/
 
 int main() {
 
   // create a WSCP 
-  const int num_elements = 7000; 
-  const int num_sets = 10000;
-  const int m_size = 100; // := max size of a set
+  const int num_elements = 1000; 
+  const int num_sets = 1500;
+  const int m_size = 60; // := max size of a set
+  const int max_weight = 20; // := maximum weight 
 
+  // configureation for random variant production
   std::random_device rnd;     
   std::mt19937 mt(rnd());    
   std::uniform_int_distribution<> rand_elements(1, num_elements);        // randomly produces [0, 99] 
   std::uniform_int_distribution<> rand_size(1, m_size);         // produce a randam integer from 1 to m_size
-  std::uniform_int_distribution<> rand_weight(1,10);      // produce random weight for a set
+  std::uniform_int_distribution<> rand_weight(1,max_weight);      // produce random weight for a set
 
   // set vector
   std::vector<std::set<int>> st_v;
@@ -90,7 +86,19 @@ int main() {
     std::cout << "weight = " << set2weight[st_v[i]] << std::endl;
   }
 
+  std::vector<int> optimal_set;
+
   // solution
-  setcoveringproblem(st_v,set2weight,num_elements);
+  setcoveringproblem(st_v,set2weight,num_elements,optimal_set);
+
+  // print optimal set
+  std::cout  << std::endl << "The optimal set of sets is ..." << std::endl;
+  for(auto set : optimal_set)std::cout << set << std::endl;
+  int optimal_weight = 0;
+  for(auto setid : optimal_set){
+    optimal_weight +=set2weight[st_v[setid]];
+  }
+  std::cout << "optimal weight is ..." << std::endl;
+  std::cout << optimal_weight << std::endl;
   return EXIT_SUCCESS;
 }

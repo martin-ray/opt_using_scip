@@ -435,12 +435,11 @@ void Instance::read_balas1996(std::ifstream& file)
     // convert st_v to the problem
     Cost cost;
     int id = 0;
-    for(auto itr=st_v.begin();itr!=st_v.end();itr++){
-        sets_[id].id = id;
-        cost = set2weight[*itr];
-        sets_[id].cost = cost;
+    for(int i=0;i<st_v.size();++i){
+        sets_[i].id = i;
+        cost = set2weight[st_v[i]];
+        sets_[i].cost = cost;
         total_cost_ += cost;
-        id++;
     }
     // for (SetId s = 0; s < number_of_sets; ++s) {
     //     sets_[s].id = s;
