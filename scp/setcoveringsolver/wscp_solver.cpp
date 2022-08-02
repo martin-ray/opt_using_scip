@@ -10,13 +10,13 @@
 
 
 using namespace setcoveringsolver;
-int setcoveringproblem(std::vector<std::set<int>>& st_v,std::map<std::set<int>,int>& set2weight,int num_of_elem,std::vector<int>& optimal_set)
+int setcoveringproblem(std::vector<std::set<int>>& st_v,std::map<std::set<int>,int>& set2weight,int num_of_elem,std::vector<int>& optimal_set,std::string algorithm)
 {
     namespace po = boost::program_options;
 
     // Parse program options
 
-    std::string algorithm = ""; // 決めて
+    // std::string algorithm = ""; // 決めて
     std::string instance_path = ""; // これは関係ない
     std::string format = "balas1996"; // フォーマットはこれですね
     std::string initial_solution_path = "";
@@ -30,7 +30,7 @@ int setcoveringproblem(std::vector<std::set<int>>& st_v,std::map<std::set<int>,i
 
    
     
-    algorithm = "largeneighborhoodsearch_2";
+    // algorithm = "largeneighborhoodsearch_2";
     format = "balas1996";
     time_limit = 30; // 60秒以内に解を見つけてくれ。
     verbosity_level = 1; // これによって解が変わってくる可能性もある。

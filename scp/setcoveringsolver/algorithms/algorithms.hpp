@@ -3,6 +3,7 @@
 #include "../solution.hpp"
 
 #include "greedy.hpp"
+#include "milp_cbc.hpp"
 #include "milp_gurobi.hpp"
 #include "localsearch_rowweighting.hpp"
 #include "largeneighborhoodsearch.hpp"

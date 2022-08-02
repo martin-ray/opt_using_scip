@@ -19,8 +19,8 @@
 int main() {
 
   // create a WSCP 
-  const int num_elements = 1000; 
-  const int num_sets = 1500;
+  const int num_elements = 700; 
+  const int num_sets = 1000;
   const int m_size = 60; // := max size of a set
   const int max_weight = 20; // := maximum weight 
 
@@ -88,17 +88,44 @@ int main() {
 
   std::vector<int> optimal_set;
 
-  // solution
-  setcoveringproblem(st_v,set2weight,num_elements,optimal_set);
+  // solver algorithm
+  // std::string algorithm = "largeneighborhoodsearch_2";
+  // available option
+  std::string algorithm = "greedy";
+  std::string algorithm2 = "largeneighborhoodsearch_2";
+  std::string algorithm3 = "localsearch_rowweighting_2";
+  std::string algorithm4 = "milp_cbc";
 
-  // print optimal set
-  std::cout  << std::endl << "The optimal set of sets is ..." << std::endl;
-  for(auto set : optimal_set)std::cout << set << std::endl;
+  // // solution
+  // setcoveringproblem(st_v,set2weight,num_elements,optimal_set,algorithm2);
+
+
+  // // print optimal set
+  // std::cout  << std::endl << "The optimal set of sets is ... " << std::endl;
+  // std::cout << "size = " << optimal_set.size() << std::endl;
+  // for(auto set : optimal_set)std::cout << set << std::endl;
   int optimal_weight = 0;
+  // for(auto setid : optimal_set){
+  //   optimal_weight +=set2weight[st_v[setid]];
+  // }
+  // std::cout << "optimal sum of weight is ..." << std::endl;
+  // std::cout << optimal_weight << std::endl;
+
+
+    // solution2 
+  setcoveringproblem(st_v,set2weight,num_elements,optimal_set,algorithm3);
+  setcoveringproblem(st_v,set2weight,num_elements,optimal_set,algorithm2);
+  setcoveringproblem(st_v,set2weight,num_elements,optimal_set,algorithm);
+  setcoveringproblem(st_v,set2weight,num_elements,optimal_set,algorithm4);
+
+    // print optimal set
+  std::cout  << std::endl << "The optimal set of sets is ... " << std::endl;
+  std::cout << "size = " << optimal_set.size() << std::endl;
+  for(auto set : optimal_set)std::cout << set << std::endl;
   for(auto setid : optimal_set){
     optimal_weight +=set2weight[st_v[setid]];
   }
-  std::cout << "optimal weight is ..." << std::endl;
+  std::cout << "optimal sum of weight is ..." << std::endl;
   std::cout << optimal_weight << std::endl;
   return EXIT_SUCCESS;
 }

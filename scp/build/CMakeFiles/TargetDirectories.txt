@@ -1,0 +1,3 @@
+/home/ray/POP/scp/build/CMakeFiles/edit_cache.dir
+/home/ray/POP/scp/build/CMakeFiles/rebuild_cache.dir
+/home/ray/POP/scp/build/CMakeFiles/wscp_solver.dir

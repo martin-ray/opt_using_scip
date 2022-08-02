@@ -101,6 +101,10 @@ Output setcoveringsolver::run(
         return greedy_lin(instance, info);
     } else if (algorithm_args[0] == "greedy_dual") {
         return greedy_dual(instance, info);
+    } else if (algorithm_args[0] == "milp_cbc") {
+        MilpCbcOptionalParameters parameters;
+        parameters.info = info;
+        return milp_cbc(instance, parameters);
 #if GUROBI_FOUND
     } else if (algorithm_args[0] == "milp_gurobi") {
         MilpGurobiOptionalParameters parameters;
